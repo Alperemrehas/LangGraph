@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import AzureChatOpenAI
+from rag_pipeline import EmbeddingsHandler
 
 load_dotenv()
 
@@ -34,8 +35,11 @@ class LLMHandler:
         response = f"User Intention is {USER_INTENTION}"
         return response
 
+
 def main():
     handler = LLMHandler()
+    embeddings_handler = EmbeddingsHandler()
+
     query = 'Hi, my fuel filter is not working. Can you help me with that?'
     print(f"Input query: {query}")
     
@@ -43,11 +47,14 @@ def main():
 
     workflow.add_node("node_1", handler.function_1)
     workflow.add_node("node_2", handler.function_2)
+    workflow.add_node("node_3", embeddings_handler.function_3)
 
     workflow.add_edge('node_1', 'node_2')
+    workflow.add_edge('node_2', 'node_3')
 
     workflow.set_entry_point("node_1")
-    workflow.set_finish_point("node_2")
+    #workflow.set_finish_point("node_2")
+    workflow.set_finish_point("node_3")
 
     app = workflow.compile()
 
