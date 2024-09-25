@@ -34,6 +34,7 @@ class EmbeddingsHandler:
         return documents
 
     def function_3(self,input_3):
+        print('-> Calling Embeddings Handler')
         if input_3 == None:
             pass
         else:
