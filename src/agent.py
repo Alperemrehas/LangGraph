@@ -28,7 +28,7 @@ class IntentionSelector(BaseModel):
         return user_intention
 
 class LLMHandler:
-    def __init__(self, temperature=0, azure_deployment="gpt-40"):
+    def __init__(self, temperature=0, azure_deployment="gpt-4o-mini"):
         self.api_key = os.getenv("AZURE_OPENAI_API_KEY")
         self.azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 
